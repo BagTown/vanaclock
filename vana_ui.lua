@@ -56,7 +56,7 @@ vana_ui.drawVanaClock = function (vanaclock)
     imgui.PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
     if(imgui.Begin("VanaClock" .. "", {true}, bit.bor(ImGuiWindowFlags_NoDecoration))) then
         if (imgui.BeginTabBar('##vc_tabs', ImGuiTabBarFlags_NoCloseWithMiddleMouseButton)) then
-            if (imgui.BeginTabItem('General Info', nil)) then
+            if (imgui.BeginTabItem('General', nil)) then
                 
                 imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Earth Time');
                 imgui.Text(string.format(" %s/%s/%s, %s, %s:%s:%s", earth_time.year, earth_time.month, earth_time.day, earth_time.weekday, earth_time.hour, earth_time.minute, earth_time.second));
@@ -74,15 +74,14 @@ vana_ui.drawVanaClock = function (vanaclock)
 
                 imgui.EndTabItem();
             end
-            if (imgui.BeginTabItem('Airship/Ferry Times', nil)) then
+            if (imgui.BeginTabItem('Airships', nil)) then
 
                 imgui.PopStyleColor(3);
                 imgui.PushStyleColor(ImGuiCol_Text, vanaclock.settings.font.color);
-                imgui.SetWindowFontScale(1.0);
 
-                -- BASTOK ROUTES
-                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Bastok Routes');
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.bastok_to_jeuno);
+                -- CITIES TO JEUNO ROUTES
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Cities to Jeuno');
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.bastok_to_jeuno, 4);
                 imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.bastok)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
                 imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
                 imgui.SameLine();
@@ -96,25 +95,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
                 imgui.PopStyleVar(1);
 
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_bastok);
-                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.jeuno)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
-                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
-                imgui.SameLine();
-                imgui.AlignTextToFramePadding();
-                imgui.Text(" Jeuno -->  ")
-                imgui.SameLine();
-                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.bastok)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
-                imgui.SameLine();
-                imgui.Text(" Bastok - Departs in: ");
-                imgui.SameLine();
-                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
-                imgui.PopStyleVar(1);
-                
-                imgui.NewLine();
-
-                -- SAN D'ORIA ROUTES
-                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'San d\'Oria Routes');
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.sandoria_to_jeuno);
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.sandoria_to_jeuno, 4);
                 imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.sandoria)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
                 imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
                 imgui.SameLine();
@@ -128,25 +109,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
                 imgui.PopStyleVar(1);
 
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_sandoria);
-                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.jeuno)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
-                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
-                imgui.SameLine();
-                imgui.AlignTextToFramePadding();
-                imgui.Text(" Jeuno -->  ")
-                imgui.SameLine();
-                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.sandoria)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
-                imgui.SameLine();
-                imgui.Text(" San d'Oria - Departs in: ");
-                imgui.SameLine();
-                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
-                imgui.PopStyleVar(1);
-
-                imgui.NewLine();
-
-                -- WINDURST ROUTES
-                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Windurst Routes');
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.windurst_to_jeuno);
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.windurst_to_jeuno, 4);
                 imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.windurst)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
                 imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
                 imgui.SameLine();
@@ -160,25 +123,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
                 imgui.PopStyleVar(1);
 
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_windurst);
-                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.jeuno)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
-                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
-                imgui.SameLine();
-                imgui.AlignTextToFramePadding();
-                imgui.Text(" Jeuno -->  ")
-                imgui.SameLine();
-                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.windurst)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
-                imgui.SameLine();
-                imgui.Text(" Windurst - Departs in: ");
-                imgui.SameLine();
-                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
-                imgui.PopStyleVar(1);
-
-                imgui.NewLine();
-
-                -- KAZHAM ROUTES
-                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Kazham Routes');
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.kazham_to_jeuno);
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.kazham_to_jeuno, 4);
                 imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.kazham)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
                 imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
                 imgui.SameLine();
@@ -192,7 +137,53 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
                 imgui.PopStyleVar(1);
 
-                airshipDelay = get_next_airship_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_kazham);
+                imgui.NewLine();
+
+                -- JEUNO TO CITIES ROUTES
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Jeuno to Cities');
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_bastok, 4);
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.jeuno)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(" Jeuno -->  ")
+                imgui.SameLine();
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.bastok)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
+                imgui.SameLine();
+                imgui.Text(" Bastok - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
+                imgui.PopStyleVar(1);
+
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_sandoria, 4);
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.jeuno)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(" Jeuno -->  ")
+                imgui.SameLine();
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.sandoria)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
+                imgui.SameLine();
+                imgui.Text(" San d'Oria - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
+                imgui.PopStyleVar(1);
+
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_windurst, 4);
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.jeuno)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(" Jeuno -->  ")
+                imgui.SameLine();
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.windurst)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
+                imgui.SameLine();
+                imgui.Text(" Windurst - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
+                imgui.PopStyleVar(1);
+
+                airshipDelay = get_next_departure_delay(vana_secs, vanaclock.settings.airships.jeuno_to_kazham, 4);
                 imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.jeuno)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
                 imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
                 imgui.SameLine();
@@ -206,10 +197,15 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(airshipDelay)));
                 imgui.PopStyleVar(1);
 
-                imgui.NewLine();
+                imgui.EndTabItem();
+            end
+            if (imgui.BeginTabItem('Ferries', nil)) then
+
+                imgui.PopStyleColor(3);
+                imgui.PushStyleColor(ImGuiCol_Text, vanaclock.settings.font.color);
 
                 -- FERRIES
-                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Selbina/Mhaura Ferry');
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Ferries');
                 imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.mhaura)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
                 imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
                 imgui.SameLine();
@@ -220,13 +216,201 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.SameLine();
                 imgui.Text(" Selbina - Departs in: ");
                 imgui.SameLine();
-                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_ferry_departure_delay(vana_secs, vanaclock.settings.ferries.selbina_to_mhaura))));
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.ferries.selbina_to_mhaura, 3))));
                 imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.mhaura)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(" Mhaura <-->  ")
+                imgui.SameLine();
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.aht_urhgan)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
+                imgui.SameLine();
+                imgui.Text(" Whitegate - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.ferries.mhaura_to_aht_urhgan, 3))));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.aht_urhgan)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(" Whitegate <-->  ")
+                imgui.SameLine();
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.aht_urhgan)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] }); 
+                imgui.SameLine();
+                imgui.Text(" Nashmau - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.ferries.aht_urhgan_to_nashmau, 3))));
+                imgui.PopStyleVar(1);
+
+                imgui.NewLine()
+
+                -- Manaclipper ROUTES
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Bibiki Bay Manaclipper Routes');
+                imgui.Text(" Bibiki Bay -->  ")
+                imgui.SameLine();
+                imgui.Text(" Purgonorgo Isle - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.ferries.bibiki_bay_to_purgonorgo_isle, 2))));
+
+                imgui.Text(" Purgonorgo Isle -->  ")
+                imgui.SameLine();
+                imgui.Text(" Bibiki Bay Isle - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.ferries.purgonorgo_isle_to_bibiki_bay, 2))));
+
+                imgui.Text(" Bibiki Bay -->  ")
+                imgui.SameLine();
+                imgui.Text(" Maliyakaleya Reef Tour - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.ferries.bibiki_bay_maliyakaleya_reef_tour, 1))));
+
+                imgui.Text(" Bibiki Bay -->  ")
+                imgui.SameLine();
+                imgui.Text(" Dhalmel Rock Tour - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.ferries.bibiki_bay_dhalmel_rock_tour, 1))));
+
+                imgui.NewLine();
+
+                -- PHANAUET CHANNEL ROUTES
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Phanauet Channel Barge Routes');
+                imgui.Text(" North Landing -->  ")
+                imgui.SameLine();
+                imgui.Text(" Central Landing - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.barges.north_to_central, 1))));
+                
+                imgui.Text(" Central Landing -->  ")
+                imgui.SameLine();
+                imgui.Text(" South Landing via Newtpool - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.barges.central_to_south, 2))));
+
+                imgui.Text(" South Landing -->  ")
+                imgui.SameLine();
+                imgui.Text(" North Landing - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.barges.south_to_north, 1))));
+
+                imgui.Text(" South Landing -->  ")
+                imgui.SameLine();
+                imgui.Text(" Central Landing via Emfea - Departs in: ");
+                imgui.SameLine();
+                imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.barges.south_to_central, 1))));
 
                 imgui.EndTabItem();
             end
             if (imgui.BeginTabItem('RSE Calendar', nil)) then
-    
+                local start_time = nil;
+                local end_time = nil;
+                local location = nil;
+
+                
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Elvaan');
+                start_time = get_next_RSE_start_time(1);
+                end_time = get_next_RSE_end_time(1);
+                location = get_next_RSE_location(1);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[1], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
+                start_time = get_next_RSE_start_time(2);
+                end_time = get_next_RSE_end_time(2);
+                location = get_next_RSE_location(2);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[2], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
+                imgui.NewLine();
+
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Tarutaru');
+                start_time = get_next_RSE_start_time(3);
+                end_time = get_next_RSE_end_time(3);
+                location = get_next_RSE_location(3);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[3], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
+                start_time = get_next_RSE_start_time(4);
+                end_time = get_next_RSE_end_time(4);
+                location = get_next_RSE_location(4);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[4], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
+                imgui.NewLine();
+
+
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Mithra');
+                start_time = get_next_RSE_start_time(5);
+                end_time = get_next_RSE_end_time(5);
+                location = get_next_RSE_location(5);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[5], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
+                imgui.NewLine();
+
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Galka');
+                start_time = get_next_RSE_start_time(6);
+                end_time = get_next_RSE_end_time(6);
+                location = get_next_RSE_location(6);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[6], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
+                imgui.NewLine();
+                
+                imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Hume');
+                start_time = get_next_RSE_start_time(7);
+                end_time = get_next_RSE_end_time(7);
+                location = get_next_RSE_location(7);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[7], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
+                start_time = get_next_RSE_start_time(8);
+                end_time = get_next_RSE_end_time(8);
+                location = get_next_RSE_location(8);
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.AlignTextToFramePadding();
+                imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
+                            vanaclock.settings.RSE.race[8], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
+                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                            end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
+                imgui.PopStyleVar(1);
+
                 imgui.EndTabItem();
             end
             if (imgui.BeginTabItem('Moon Calendar', nil)) then

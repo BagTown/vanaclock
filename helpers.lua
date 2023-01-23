@@ -9,34 +9,15 @@ function get_earth_time(time)
     earth_time.weekday = os.date("%A", time); 
     earth_time.month_name = os.date("%B", time);
 
-  -- Assigns a leading zero if neccessary
-  if (tonumber(earth_time.day) < 10) then earth_time.day = "0" .. earth_time.day; end
-  if (tonumber(earth_time.second) < 10)  then earth_time.second  = "0" .. earth_time.second; end
-
   return earth_time;
 end
 
-function get_next_airship_departure_delay(vana_seconds_in_day, airship_times)
+function get_next_departure_delay(vana_seconds_in_day, times, max_departures)
     local delay = 0;
-    if (vana_seconds_in_day > airship_times[4]) then
-        delay = (86400 - vana_seconds_in_day) + airship_times[1];
+    if (vana_seconds_in_day > times[max_departures]) then
+        delay = (86400 - vana_seconds_in_day) + times[1];
     else
-        for key, value in pairs(airship_times) do
-            if(value > vana_seconds_in_day) then
-                delay = value - vana_seconds_in_day;
-                return delay;
-            end
-        end
-    end
-    return delay;
-end
-
-function get_next_ferry_departure_delay(vana_seconds_in_day, ferry_times)
-    local delay = 0;
-    if (vana_seconds_in_day > ferry_times[3]) then
-        delay = (86400 - vana_seconds_in_day) + ferry_times[1];
-    else
-        for key, value in pairs(ferry_times) do
+        for key, value in pairs(times) do
             if(value > vana_seconds_in_day) then
                 delay = value - vana_seconds_in_day;
                 return delay;
@@ -50,14 +31,55 @@ function convert_vanaseconds_to_earthseconds(vanaseconds)
     return math.floor(vanaseconds * 0.04);
 end
 
-function time_to_string(vanaseconds)
+function convert_earthseconds_to_vanaseconds(earthseconds)
+    return earthseconds * 25;
+end
+
+function time_to_string(seconds)
     local time = ""
 
-    if(vanaseconds < 60) then
-        time = tostring(vanaseconds) .. " seconds";
+    if(seconds < 60) then
+        time = tostring(seconds) .. " seconds";
     else
-        time = tostring(math.floor(vanaseconds / 60)) .. " minutes";
+        time = tostring(math.floor(seconds / 60)) .. " minutes";
     end
 
     return time;
+end
+
+function get_next_RSE_start_time(race)
+    local current_vanatime = (ashita.ffxi.vanatime.get_raw_timestamp() + 92514960) * 25;
+    local RSE_mod = math.floor(current_vanatime / (8 * 691200)) * (8 * 691200);
+    RSE_mod = RSE_mod + ((race - 1) * 691200);
+    
+    if(current_vanatime > (RSE_mod + 691200)) then
+        RSE_mod = RSE_mod + (8 * 691200);
+    end
+    
+    return get_earth_time(math.floor(RSE_mod / 25) - 92514960);
+end
+
+function get_next_RSE_end_time(race)
+    local current_vanatime = (ashita.ffxi.vanatime.get_raw_timestamp() + 92514960) * 25;
+    local RSE_mod = math.floor(current_vanatime / (8 * 691200)) * (8 * 691200);
+    RSE_mod = RSE_mod + ((race - 1)  * 691200);
+    
+    if(current_vanatime > (RSE_mod + 691200)) then
+        RSE_mod = RSE_mod + (8 * 691200);
+    end
+
+    return get_earth_time(math.floor((RSE_mod + 691200) / 25) - 92514960);
+end
+
+function get_next_RSE_location(race)
+    local location = 0;
+    local current_vanatime = (ashita.ffxi.vanatime.get_raw_timestamp() + 92514960) * 25;
+    local RSE_mod = math.floor(current_vanatime / (8 * 691200)) * (8 * 691200);
+    RSE_mod = RSE_mod + ((race - 1)  * 691200);
+    
+    if(current_vanatime > (RSE_mod + 691200)) then
+        RSE_mod = RSE_mod + (8 * 691200);
+    end
+    RSE_mod = RSE_mod + (8 * 691200);
+    return (math.floor(RSE_mod / 691200) % 3) + 1;
 end

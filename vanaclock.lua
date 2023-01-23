@@ -70,12 +70,14 @@ local vanaclock = T{
         woodworking     = nil;        
     };
 
+    RSE = T { race = '', starting_time = 0, ending_time = 0, location = '', vanadiel_time = 0 },
+
     sprite = nil;
     rect = ffi.new('RECT', { 0, 0, 64, 64, });
     vec_position = ffi.new('D3DXVECTOR2', { 0, 0, }),
     vec_scale = ffi.new('D3DXVECTOR2', { 0.5, 0.5, }),
 
-    settings = settings.load(Default_settings);
+    settings = settings.load(Default_settings),
 };
 
 ffi.cdef[[
@@ -130,7 +132,15 @@ local function print_help(isError)
 end
 
 local function print_debug()
+    for key, value in pairs(vanaclock.settings.RSE.race) do
+        local start_time = get_next_RSE_start_time((key - 1));
+        local end_time = get_next_RSE_end_time((key - 1));
+        print(string.format("%s: Next RSE time starts at - %s/%s/%s, %s, %s:%s:%s - in %s",
+                value, start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[get_next_RSE_location(key - 1) + 1]));
+        print(string.format("- Ends at - %s/%s/%s, %s, %s:%s:%s",
+                end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
     
+    end
 end
 
 --[[

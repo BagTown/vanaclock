@@ -34,16 +34,27 @@ Default_settings = T{
     -- Ferry Times
     ferries = T {
         selbina_to_mhaura = T {[1] = 0, [2] = 28800, [3] = 57600},
-        
-        mhaura_to_aht_urhgan = T { },
-        aht_urhgan_to_mhaura = T { },
-        aht_urhgan_to_nashmau = T { },
-        nashmau_to_aht_urhgan = T { },
+        mhaura_to_aht_urhgan = T {[1] = 14400, [2] = 43200, [3] = 72000},
+        aht_urhgan_to_nashmau = T {[1] = 0, [2] = 28800, [3] = 57600},
 
-        bibiki_bay_to_purgonorgo_isle = T { },
-        purgonorgo_isle_to_bibiki_bay = T { },
+        bibiki_bay_to_purgonorgo_isle = T {[1] = 19800, [2] =  63000},
+        purgonorgo_isle_to_bibiki_bay = T {[1] = 33300, [2] = 76500},
+        bibiki_bay_maliyakaleya_reef_tour = T {[1] = 46200},
+        bibiki_bay_dhalmel_rock_tour = T {[1] = 3000},
     },
 
+    barges = T {
+        north_to_central = T {[1] = 62700},
+        central_to_south = T {[1] = 18600, [2] = 71400},
+        south_to_north = T {[1] = 36600},
+        south_to_central = T {[1] = 3000},
+    },
+
+    -- RSE Static Location Times
+    RSE = {
+        race = T {[1] = "M. Elvaan", [2] = "F. Elvaan", [3] = "M. Tarutaru", [4] = "F. Tarutaru", [5] = "Mithra", [6] = "Galka", [7] = "M. Hume", [8] = "F. Hume"},
+        location = T {[1] = "Gusgen Mines", [2] = "Shakhrami Maze", [3] = "Ordelle\'s Caves"},
+    },
     
     -- Background Primitive Settings
     background = T{
