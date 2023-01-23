@@ -317,7 +317,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[1], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
@@ -328,7 +328,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[2], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
@@ -342,7 +342,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[3], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
@@ -353,7 +353,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[4], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
@@ -368,7 +368,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[5], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
@@ -382,7 +382,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[6], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
@@ -396,7 +396,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[7], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
@@ -407,7 +407,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.AlignTextToFramePadding();
                 imgui.Text(string.format("%s - Starts: %s/%s/%s, %s, %s:%s:%s -> %s", 
                             vanaclock.settings.RSE.race[8], start_time.year, start_time.month, start_time.day, start_time.weekday, start_time.hour, start_time.minute, start_time.second, vanaclock.settings.RSE.location[location]));
-                imgui.Text(string.format("     Ends: %s/%s/%s, %s, %s:%s:%s",
+                imgui.Text(string.format("          Ends: %s/%s/%s, %s, %s:%s:%s",
                             end_time.year, end_time.month, end_time.day, end_time.weekday, end_time.hour, end_time.minute, end_time.second));
                 imgui.PopStyleVar(1);
 
