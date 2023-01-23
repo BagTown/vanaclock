@@ -26,6 +26,8 @@ The fifth tab is the 'Moon Calendar' tab. This will show the time for each of th
 
 The final tab is the 'Crafting Guilds' tab. This will show if each guild is open, closed for the holiday, and when they will next be open.
 
+
 -- INSTALLATION --
+
 Download the new package release and put the vanaclock folder into the ashita addons folder.
 The vanatime.lua library is required and must be placed into the addons/libs directory.
