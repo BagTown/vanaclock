@@ -69,7 +69,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.Text(string.format(", %s", current_vanatime));
                 imgui.NewLine();
                 imgui.TextColored({ 1.0, 0.65, 0.26, 1.0 }, 'Moon Phase');
-                imgui.Text(string.format(" %s %s%s", MoonPhase[current_vanadate.moon_phase], current_vanadate.moon_percent, '%%'));
+                imgui.Text(string.format(" %s %s%s", MoonPhase[current_vanadate.moon_phase + 1], current_vanadate.moon_percent, '%%'));
 
 
                 imgui.EndTabItem();

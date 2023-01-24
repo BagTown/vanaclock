@@ -83,3 +83,26 @@ function get_next_RSE_location(race)
     RSE_mod = RSE_mod + (8 * 691200);
     return (math.floor(RSE_mod / 691200) % 3) + 1;
 end
+
+function get_next_moon_phase()
+    local mphase = (math.floor(((ashita.ffxi.vanatime.get_raw_timestamp() + 92514960) * 25) / 86400) + 26) % 84;
+    local current_phase = ashita.ffxi.vanatime.get_current_date().moon_phase + 1;
+    local next_phase = current_phase + 1;
+    if (next_phase == 3 or next_phase == 6 or next_phase == 9) then
+        next_phase = next_phase + 1;
+    elseif (next_phase == 12) then
+        next_phase = 1;
+    end
+
+    local diff = 0;
+    if(MoonPhaseChanges[next_phase] < mphase) then
+        diff = (84 - mphase) + MoonPhaseChanges[next_phase];
+    else
+        diff = MoonPhaseChanges[next_phase] - mphase;
+    end
+
+    local start_of_vanaday = math.floor(ashita.ffxi.vanatime.get_current_second()) + (60 * math.floor(ashita.ffxi.vanatime.get_current_minute())) + (3600 * math.floor(ashita.ffxi.vanatime.get_current_hour()));
+    local vanatimediff = (3456 * diff * 25) - start_of_vanaday;
+    
+    return get_earth_time(os.time() + (vanatimediff/25))
+end
