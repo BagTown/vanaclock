@@ -1,15 +1,29 @@
-VanaDay         = T{"Firesday", "Earthsday", "Watersday", "Windsday", "Iceday", "Lightningday", "Lightsday", "Darksday"};
-DayColor        = T{{0.87, 0.0, 0.0, 1.0}, {0.67, 0.67, 0.0, 1.0}, {0.0, 0.0, 0.87, 1.0}, {0.0, 0.67, 0.13, 1.0}, {0.47, 0.6, 1.0, 1.0}, {0.67, 0.0, 0.67, 1.0}, {0.67, 0.67, 0.67, 1.0}, {0.2, 0.2, 0.2, 1.0}};
-MoonPhase       = T{"New Moon", "Waxing Crescent", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Waning Gibbous", "Last Quarter", "Waning Crescent", "Waning Crescent"};
-MoonPhaseChanges = T{   [1] = 38, --New Moon
-                        [2] = 45, --Waxing Crescent
-                        [4] = 59, --First Quarter
-                        [5] = 66, --Waxing Gibbous
-                        [7] = 80, --Full Moon
-                        [8] = 3, --Waning Gibbous
-                        [10] = 17, --Last Quarter
-                        [11] = 24 --Waning Crescent
-                    }
+VanaDay  = T{"Firesday", "Earthsday", "Watersday", "Windsday", "Iceday", "Lightningday", "Lightsday", "Darksday"};
+DayColor = T{{0.87, 0.0, 0.0, 1.0}, {0.67, 0.67, 0.0, 1.0}, {0.0, 0.0, 0.87, 1.0}, {0.0, 0.67, 0.13, 1.0}, {0.47, 0.6, 1.0, 1.0}, {0.67, 0.0, 0.67, 1.0}, {0.67, 0.67, 0.67, 1.0}, {0.2, 0.2, 0.2, 1.0}};
+
+MoonPhase        = T{"New Moon", "Waxing Crescent", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Waning Gibbous", "Last Quarter", "Waning Crescent", "Waning Crescent"};
+MoonPhaseChanges = T{   
+    [1] = 38, --New Moon
+    [2] = 45, --Waxing Crescent
+    [4] = 59, --First Quarter
+    [5] = 66, --Waxing Gibbous
+    [7] = 80, --Full Moon
+    [8] = 3, --Waning Gibbous
+    [10] = 17, --Last Quarter
+    [11] = 24 --Waning Crescent
+};
+
+Guild = T{
+    alchemy = { name = "Alchemy", opens = 28800, closes = 82800, holiday = 7 },
+    bonecraft = { name = "Bonecraft", opens = 28800, closes = 82800, holiday = 4 },
+    clothcraft = { name = "Clothcraft", opens = 21600, closes = 75600, holiday = 1 },
+    cooking = { name = "Cooking", opens = 18000, closes = 72000, holiday = 8 },
+    fishing = { name = "Fishing", opens = 10800, closes = 64800, holiday = 6 },
+    goldsmith = { name = "Goldsmithing", opens = 28800, closes = 82800, holiday = 5 },
+    leathercraft = { name = "Leathercraft", opens = 10800, closes = 64800, holiday = 5 },
+    smithing = { name = "Smithing", opens = 28800, closes = 82800, holiday = 3 },
+    woodworking = { name = "Woodworking", opens = 21600, closes = 75600, holiday = 1 },
+};
 
 -- Default Settings
 Default_settings = T{

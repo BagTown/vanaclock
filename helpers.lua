@@ -147,3 +147,38 @@ function get_next_selected_moon_phase_end(moon_phase)
 
     return get_earth_time(get_next_selected_moon_phase_start(next_phase).time - 1);
 end
+
+function get_guild_status_time(guild)
+    local vana_seconds_in_day = math.floor(ashita.ffxi.vanatime.get_current_second()) + (60 * math.floor(ashita.ffxi.vanatime.get_current_minute())) + (3600 * math.floor(ashita.ffxi.vanatime.get_current_hour()));
+    local vana_day = ashita.ffxi.vanatime.get_current_date().weekday + 1;
+    local guild_status = "";
+    local delay = 0;
+
+    if(guild.holiday == vana_day) then
+        delay = convert_vanaseconds_to_earthseconds((86400 - vana_seconds_in_day) + guild.opens);
+        guild_status = guild.name .. " - GUILD HOLIDAY (CLOSED) - Opens in: " .. time_to_string(delay);
+    elseif (vana_seconds_in_day >= guild.opens and vana_seconds_in_day < guild.closes) then
+        delay = convert_vanaseconds_to_earthseconds(guild.closes - vana_seconds_in_day);
+        guild_status = guild.name .. " Open - Closes in: " .. time_to_string(delay);
+    elseif (vana_seconds_in_day < guild.opens) then
+        delay = convert_vanaseconds_to_earthseconds(guild.opens - vana_seconds_in_day);
+        guild_status = guild.name .. " Closed - Opens in: " .. time_to_string(delay);
+    elseif (vana_seconds_in_day > guild.closes) then
+        local nextday = 0;
+        if (vana_day == 8) then
+            nextday = 1;
+        else
+            nextday = vana_day + 1;
+        end
+
+        if(guild.holiday == nextday) then
+            delay = convert_vanaseconds_to_earthseconds((86400 - vana_seconds_in_day) + guild.opens + 86400);
+            guild_status = guild.name .. " Closed (Holiday Tomorrow) - Opens in: " .. time_to_string(delay);
+        else
+            delay = convert_vanaseconds_to_earthseconds((86400 - vana_seconds_in_day) + guild.opens);
+            guild_status = guild.name .. " Closed - Opens in: " .. time_to_string(delay);
+        end
+    end
+
+    return guild_status;
+end

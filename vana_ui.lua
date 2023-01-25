@@ -507,7 +507,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.SameLine();
                 imgui.AlignTextToFramePadding();
                 imgui.Text(moon_times);
-                imgui.PopStyleVar(10);
+                imgui.PopStyleVar(1);
 
                 ed = get_next_selected_moon_phase_start(11)
                 if(now >= ed.time) then 
@@ -525,6 +525,69 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.EndTabItem();
             end
             if (imgui.BeginTabItem('Crafting Guilds', nil)) then
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.alchemy)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.alchemy));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.bonecraft)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.bonecraft));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.clothcraft)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.clothcraft));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.cooking)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.cooking));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.fishing)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.fishing));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.goldsmith)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.goldsmith));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.leathercraft)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.leathercraft));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.smithing)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.smithing));
+                imgui.PopStyleVar(1);
+
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.woodworking)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(get_guild_status_time(Guild.woodworking));
+                imgui.PopStyleVar(1);
     
                 imgui.EndTabItem();
             end

@@ -61,7 +61,7 @@ local vanaclock = T{
 
         alchemy         = nil;
         blacksmith      = nil;
-        boneworking     = nil;
+        bonecraft       = nil;
         clothcraft      = nil;
         cooking         = nil;
         goldsmith       = nil;
@@ -138,35 +138,7 @@ local function print_help(isError)
 end
 
 local function print_debug()
-    
-    local ed = get_next_selected_moon_phase_start(1); -- New Moon
-    if(os.time() >= ed.time) then
-        print("Starts: NOW");
-    else
-        print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[1]));
-    end
-    ed = get_next_selected_moon_phase_end(1);
-    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[1]));
 
-    ed = get_next_selected_moon_phase_start(2); -- Waxing Crescent
-    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[2]));
-    ed = get_next_selected_moon_phase_end(2);
-    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[2]));
-
-    ed = get_next_selected_moon_phase_start(4); -- First Quarter
-    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[4]));
-    ed = get_next_selected_moon_phase_end(4);
-    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[4]));
-
-    ed = get_next_selected_moon_phase_start(5); -- Waxing Gibbous
-    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[5]));
-    ed = get_next_selected_moon_phase_end(5);
-    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[5]));
-
-    ed = get_next_selected_moon_phase_start(7); -- Full Moon
-    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[7]));
-    ed = get_next_selected_moon_phase_end(7);
-    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[7]));
 end
 
 --[[
@@ -256,6 +228,16 @@ ashita.events.register('load', 'load_cb', function()
     vanaclock.icons.mhaura = load_asset_texture('mhaura');
     vanaclock.icons.selbina = load_asset_texture('selbina');
     vanaclock.icons.kazham = load_asset_texture('kazham');
+
+    vanaclock.icons.alchemy = load_asset_texture('alchemy');
+    vanaclock.icons.bonecraft = load_asset_texture('bonecraft');
+    vanaclock.icons.clothcraft = load_asset_texture('clothcraft');
+    vanaclock.icons.cooking = load_asset_texture('cooking');
+    vanaclock.icons.fishing = load_asset_texture('fishing');
+    vanaclock.icons.goldsmith = load_asset_texture('goldsmithing');
+    vanaclock.icons.leathercraft = load_asset_texture('leathercraft');
+    vanaclock.icons.smithing = load_asset_texture('smithing');
+    vanaclock.icons.woodworking = load_asset_texture('woodworking');
 
     vanaclock.icons.new_moon = load_asset_texture('newmoon');
     vanaclock.icons.crescent = load_asset_texture('crescentmoon');
