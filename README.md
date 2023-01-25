@@ -34,7 +34,7 @@ The fifth tab is the 'Moon Calendar' tab. This shows the time for each of the ne
 
 The final tab is the 'Crafting Guilds' tab. This shows if each guild is open, closed for the holiday, and when they will next be open.
 
-![image](https://user-images.githubusercontent.com/46830591/214480679-709edf3e-a41c-425b-b58c-3a2541836c70.png)
+![image](https://user-images.githubusercontent.com/46830591/214480861-2b276ab7-2944-4504-81f0-680bf89ee244.png)
 
 
 -- INSTALLATION --
