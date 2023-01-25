@@ -67,7 +67,13 @@ local vanaclock = T{
         goldsmith       = nil;
         fishing         = nil;
         leatherworking  = nil;
-        woodworking     = nil;        
+        woodworking     = nil;    
+        
+        new_moon        = nil;
+        crescent        = nil;
+        quarter         = nil;
+        gibbous         = nil;
+        full_moon       = nil;
     };
 
     RSE = T { race = '', starting_time = 0, ending_time = 0, location = '', vanadiel_time = 0 },
@@ -133,8 +139,34 @@ end
 
 local function print_debug()
     
-    local ed = get_next_moon_phase();
-    print(string.format("%s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[next_phase]));
+    local ed = get_next_selected_moon_phase_start(1); -- New Moon
+    if(os.time() >= ed.time) then
+        print("Starts: NOW");
+    else
+        print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[1]));
+    end
+    ed = get_next_selected_moon_phase_end(1);
+    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[1]));
+
+    ed = get_next_selected_moon_phase_start(2); -- Waxing Crescent
+    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[2]));
+    ed = get_next_selected_moon_phase_end(2);
+    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[2]));
+
+    ed = get_next_selected_moon_phase_start(4); -- First Quarter
+    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[4]));
+    ed = get_next_selected_moon_phase_end(4);
+    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[4]));
+
+    ed = get_next_selected_moon_phase_start(5); -- Waxing Gibbous
+    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[5]));
+    ed = get_next_selected_moon_phase_end(5);
+    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[5]));
+
+    ed = get_next_selected_moon_phase_start(7); -- Full Moon
+    print(string.format("Starts: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[7]));
+    ed = get_next_selected_moon_phase_end(7);
+    print(string.format("Ends: %s/%s/%s, %s, %s:%s:%s, %s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second, MoonPhase[7]));
 end
 
 --[[
@@ -225,7 +257,11 @@ ashita.events.register('load', 'load_cb', function()
     vanaclock.icons.selbina = load_asset_texture('selbina');
     vanaclock.icons.kazham = load_asset_texture('kazham');
 
-
+    vanaclock.icons.new_moon = load_asset_texture('newmoon');
+    vanaclock.icons.crescent = load_asset_texture('crescentmoon');
+    vanaclock.icons.quarter = load_asset_texture('quartermoon');
+    vanaclock.icons.gibbous = load_asset_texture('gibbousmoon');
+    vanaclock.icons.full_moon = load_asset_texture('fullmoon');
 
     local sprite_ptr = ffi.new('ID3DXSprite*[1]');
     if (C.D3DXCreateSprite(d3d8dev, sprite_ptr) ~= C.S_OK) then

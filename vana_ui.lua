@@ -414,6 +414,113 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.EndTabItem();
             end
             if (imgui.BeginTabItem('Moon Calendar', nil)) then
+                local ed = nil;
+                local now = os.time();
+                local moon_times = '';
+
+                ed = get_next_selected_moon_phase_start(1)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[1] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[1] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.new_moon)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(1);
+
+                ed = get_next_selected_moon_phase_start(2)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[2] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[2] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.crescent)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(1);
+
+                ed = get_next_selected_moon_phase_start(4)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[4] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[4] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.quarter)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(1);
+
+                ed = get_next_selected_moon_phase_start(5)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[5] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[5] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.gibbous)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(1);
+
+                ed = get_next_selected_moon_phase_start(7)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[7] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[7] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.full_moon)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(1);
+
+                ed = get_next_selected_moon_phase_start(8)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[8] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[8] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.gibbous)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(1);
+
+                ed = get_next_selected_moon_phase_start(10)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[10] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[10] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.quarter)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(10);
+
+                ed = get_next_selected_moon_phase_start(11)
+                if(now >= ed.time) then 
+                    moon_times = MoonPhase[11] .. " - NOW" 
+                else
+                    moon_times = MoonPhase[11] .. " - Starts: " .. string.format("%s/%s/%s, %s, %s:%s:%s", ed.year, ed.month, ed.day, ed.weekday, ed.hour, ed.minute, ed.second);
+                end
+                imgui.Image(tonumber(ffi.cast("uint32_t", vanaclock.icons.crescent)), { 64 * vanaclock.settings.scale[1], 64 * vanaclock.settings.scale[1] });
+                imgui.PushStyleVar(ImGuiStyleVar_FramePadding, { 0, 10 });
+                imgui.SameLine();
+                imgui.AlignTextToFramePadding();
+                imgui.Text(moon_times);
+                imgui.PopStyleVar(1);
     
                 imgui.EndTabItem();
             end
