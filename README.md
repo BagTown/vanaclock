@@ -22,7 +22,8 @@ The fourth tab is the 'RSE Calendar' tab. This shows when the next window starts
 
 ![image](https://user-images.githubusercontent.com/46830591/213966642-78ba9abb-c46e-4dbd-89e6-722516c4b77d.png)
 
-The fifth tab is the 'Moon Calendar' tab. This will show the time for each of the next moon phases.
+The fifth tab is the 'Moon Calendar' tab. This shows the time for each of the next moon phases starting with new moon.
+![image](https://user-images.githubusercontent.com/46830591/214464609-31344bb7-61b5-45f2-9152-2fed0b00bb62.png)
 
 The final tab is the 'Crafting Guilds' tab. This will show if each guild is open, closed for the holiday, and when they will next be open.
 
