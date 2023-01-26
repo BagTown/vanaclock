@@ -105,7 +105,7 @@ function get_delay_to_next_moon_phase()
     local start_of_vanaday = math.floor(ashita.ffxi.vanatime.get_current_second()) + (60 * math.floor(ashita.ffxi.vanatime.get_current_minute())) + (3600 * math.floor(ashita.ffxi.vanatime.get_current_hour()));
     local vanatimediff = (3456 * diff * 25) - start_of_vanaday;
     
-    return vanatimediff/25;
+    return math.floor(vanatimediff/25);
 end
 
 function get_next_selected_moon_phase_start(moon_phase)
