@@ -85,69 +85,6 @@ function get_next_RSE_location(race)
     return (math.floor(RSE_mod / 691200) % 3) + 1;
 end
 
-function get_delay_to_next_moon_phase()
-    local mphase = (math.floor(((ashita.ffxi.vanatime.get_raw_timestamp() + 92514960) * 25) / 86400) + 26) % 84;
-    local current_phase = ashita.ffxi.vanatime.get_current_date().moon_phase + 1;
-    local next_phase = current_phase + 1;
-    if (next_phase == 3 or next_phase == 6 or next_phase == 9) then
-        next_phase = next_phase + 1;
-    elseif (next_phase == 12) then
-        next_phase = 1;
-    end
-
-    local diff = 0;
-    if(MoonPhaseChanges[next_phase] < mphase) then
-        diff = (84 - mphase) + MoonPhaseChanges[next_phase];
-    else
-        diff = MoonPhaseChanges[next_phase] - mphase;
-    end
-
-    local start_of_vanaday = math.floor(ashita.ffxi.vanatime.get_current_second()) + (60 * math.floor(ashita.ffxi.vanatime.get_current_minute())) + (3600 * math.floor(ashita.ffxi.vanatime.get_current_hour()));
-    local vanatimediff = (3456 * diff * 25) - start_of_vanaday;
-    
-    return math.floor(vanatimediff/25);
-end
-
-function get_next_selected_moon_phase_start(moon_phase)
-    local time = 0;
-    local delay = get_delay_to_next_moon_phase();
-    local current_phase = ashita.ffxi.vanatime.get_current_date().moon_phase + 1;
-    local phase_diff = 0;
-    if(current_phase > moon_phase) then
-        phase_diff = (12 - current_phase) + moon_phase - 1; --Subtracting 1 as that is figured for in the delay.
-        phase_diff = phase_diff * 7 * 3456; --7 days per moon phase times earth seconds per game day.
-    elseif(current_phase < moon_phase) then
-        phase_diff = moon_phase - current_phase - 1;
-        phase_diff = phase_diff * 7 * 3456;
-    end
-
-    if(moon_phase == current_phase) then
-        delay = 0;
-    end
-    
-    time = os.time() + delay + phase_diff;
-
-    return get_earth_time(time);
-end
-
-function get_next_selected_moon_phase_end(moon_phase)
-    local current_phase = ashita.ffxi.vanatime.get_current_date().moon_phase + 1;
-    if(current_phase == moon_phase) then
-        return get_earth_time(os.time() + get_delay_to_next_moon_phase() - 1);
-    end        
-
-    local next_phase = 1;
-    if (moon_phase == 2 or moon_phase == 5 or moon_phase == 8) then
-        next_phase = moon_phase + 2;
-    elseif (moon_phase == 11) then
-        next_phase = 1;
-    else
-        next_phase = moon_phase + 1;
-    end
-
-    return get_earth_time(get_next_selected_moon_phase_start(next_phase).time - 1);
-end
-
 function get_guild_status_time(guild)
     local vana_seconds_in_day = math.floor(ashita.ffxi.vanatime.get_current_second()) + (60 * math.floor(ashita.ffxi.vanatime.get_current_minute())) + (3600 * math.floor(ashita.ffxi.vanatime.get_current_hour()));
     local vana_day = ashita.ffxi.vanatime.get_current_date().weekday + 1;
@@ -181,4 +118,64 @@ function get_guild_status_time(guild)
     end
 
     return guild_status;
+end
+
+function getStartOfMostRecentFullMoon()
+    local now = os.time(os.date("!*t"));
+    local timezoneDiff = os.time(os.date("*t")) - now;
+    local moonEpoch = os.time{year = 2004, month = 1, day = 25, hour = 2, min = 31, sec = 12}; --2004-01-25 02:31:12
+    local timeSinceMoonEpoch = now - moonEpoch;
+    local secPerMoonCycle = 290304; --84 gamedays and 3456 seconds per gameday for full cycle
+
+    local moonPhaseZero = now - (timeSinceMoonEpoch % secPerMoonCycle);
+    local fullMoonStart = moonPhaseZero - (13824); --subtract 4 gamedays to get to start of full moon
+
+    return fullMoonStart + timezoneDiff;
+end
+
+function getStartOfCurrentMoonPhase()
+    local fullMoonStart = getStartOfMostRecentFullMoon();
+    local now = os.time();
+    local timeSinceStartOfFullMoon = now - fullMoonStart;
+
+    local gamesdaysSinceStart = timeSinceStartOfFullMoon/3456;
+    local timeSinceNearestPhaseStart = 3456 * (gamesdaysSinceStart % 7);
+    local phaseDiff = timeSinceStartOfFullMoon - timeSinceNearestPhaseStart;
+    
+
+    local secondsIntoVanaDay = (3456 * (gamesdaysSinceStart % math.floor(timeSinceStartOfFullMoon/3456)));
+    local numPhasesSinceStart = math.floor(gamesdaysSinceStart/7);
+
+
+    return fullMoonStart + phaseDiff;
+end
+
+function getCurrMoonPhase()
+    local fullMoonStart = getStartOfMostRecentFullMoon();
+    local now = os.time();
+    local timeSinceStartOfFullMoon = now - fullMoonStart;
+
+    local gamesdaysSinceStart = timeSinceStartOfFullMoon/3456;
+    local numPhasesSinceStart = math.floor(gamesdaysSinceStart/7);
+    local currMoonPhase = numPhasesSinceStart + 1;
+    
+    return currMoonPhase;
+end
+
+function getSelectedPhaseStart(moonPhase)
+    local currPhaseStart = getStartOfCurrentMoonPhase();
+    local currMoonPhase = getCurrMoonPhase();
+    local moonPhaseDiff = 0;
+    local delay = 0;
+    if(moonPhase > currMoonPhase) then
+        moonPhaseDiff = moonPhase - currMoonPhase;
+    elseif (currMoonPhase > moonPhase) then
+        moonPhaseDiff = 12 - currMoonPhase + moonPhase;
+    end
+    if(moonPhaseDiff == 0) then
+        return get_earth_time(currPhaseStart);
+    end
+
+    delay = moonPhaseDiff * 24192;
+    return get_earth_time(currPhaseStart + delay);
 end

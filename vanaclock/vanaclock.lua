@@ -138,7 +138,7 @@ local function print_help(isError)
 end
 
 local function print_debug()
-
+    
 end
 
 --[[
@@ -208,7 +208,6 @@ ashita.events.register('d3d_present', 'present_cb', function()
     else
         vana_ui.drawVanaClock(vanaclock);
     end
-    
 end);
 
 --[[

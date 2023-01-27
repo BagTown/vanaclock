@@ -1,17 +1,7 @@
 VanaDay  = T{"Firesday", "Earthsday", "Watersday", "Windsday", "Iceday", "Lightningday", "Lightsday", "Darksday"};
 DayColor = T{{0.87, 0.0, 0.0, 1.0}, {0.67, 0.67, 0.0, 1.0}, {0.0, 0.0, 0.87, 1.0}, {0.0, 0.67, 0.13, 1.0}, {0.47, 0.6, 1.0, 1.0}, {0.67, 0.0, 0.67, 1.0}, {0.67, 0.67, 0.67, 1.0}, {0.2, 0.2, 0.2, 1.0}};
 
-MoonPhase        = T{"New Moon", "Waxing Crescent", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Waning Gibbous", "Last Quarter", "Waning Crescent", "Waning Crescent"};
-MoonPhaseChanges = T{   
-    [1] = 38, --New Moon
-    [2] = 45, --Waxing Crescent
-    [4] = 59, --First Quarter
-    [5] = 66, --Waxing Gibbous
-    [7] = 80, --Full Moon
-    [8] = 3, --Waning Gibbous
-    [10] = 17, --Last Quarter
-    [11] = 24 --Waning Crescent
-};
+MoonPhase        = T{"Full Moon", "Waning Gibbous", "Waning Gibbous", "Last Quarter", "Waning Crescent", "Waning Crescent", "New Moon", "Waxing Crescent", "Waxing Crescent", "First Quarter", "Waxing Gibbous", "Waxing Gibbous", };
 
 Guild = T{
     alchemy = { name = "Alchemy", opens = 28800, closes = 82800, holiday = 7 },
