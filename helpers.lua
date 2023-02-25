@@ -157,6 +157,9 @@ function getCurrMoonPhase()
 
     local gamesdaysSinceStart = timeSinceStartOfFullMoon/3456;
     local numPhasesSinceStart = math.floor(gamesdaysSinceStart/7);
+    if(numPhasesSinceStart == 12) then
+        numPhasesSinceStart = 0;
+    end
     local currMoonPhase = numPhasesSinceStart + 1;
     
     return currMoonPhase;
