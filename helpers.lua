@@ -38,11 +38,19 @@ end
 
 function time_to_string(seconds)
     local time = ""
+    local subSecondsString = ""
+
+    local subSeconds = math.fmod(seconds,60);
+    if(subSeconds < 10) then
+        subSecondsString = "0" .. tostring(subSeconds);
+    else
+        subSecondsString = tostring(subSeconds);
+    end
 
     if(seconds < 60) then
         time = tostring(seconds) .. " seconds";
     else
-        time = tostring(math.floor(seconds / 60)) .. " minutes";
+        time = tostring(math.floor(seconds / 60)) .. ":" .. subSecondsString .. " minutes";
     end
 
     return time;
