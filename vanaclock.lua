@@ -26,7 +26,7 @@
 
 addon.name      = 'VanaClock';
 addon.author    = 'Bag_Town';
-addon.version   = '0.9';
+addon.version   = '1.0';
 addon.desc      = 'Displays an in-game timer clock for airships, moon phase, RSE times, and Guild times';
 addon.link      = 'https://ashitaxi.com/';
 
