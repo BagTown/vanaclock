@@ -32,6 +32,7 @@ vana_ui.drawMinimizedClock = function(vanaclock)
         if (imgui.Button("VanaClock", { 140, 20 })) then
             config.uiSettings.minimize[1] = not config.uiSettings.minimize[1];
         end
+        imgui.PopStyleColor(1);
         imgui.End();
     else
         imgui.PopStyleColor(3);
@@ -75,8 +76,6 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.EndTabItem();
             end
             if (imgui.BeginTabItem('Airships', nil)) then
-
-                imgui.PopStyleColor(3);
                 imgui.PushStyleColor(ImGuiCol_Text, vanaclock.settings.font.color);
 
                 -- CITIES TO JEUNO ROUTES
@@ -198,10 +197,9 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.PopStyleVar(1);
 
                 imgui.EndTabItem();
+                imgui.PopStyleColor(1);
             end
             if (imgui.BeginTabItem('Ferries', nil)) then
-
-                imgui.PopStyleColor(3);
                 imgui.PushStyleColor(ImGuiCol_Text, vanaclock.settings.font.color);
 
                 -- FERRIES
@@ -302,6 +300,7 @@ vana_ui.drawVanaClock = function (vanaclock)
                 imgui.Text(time_to_string(convert_vanaseconds_to_earthseconds(get_next_departure_delay(vana_secs, vanaclock.settings.barges.south_to_central, 1))));
 
                 imgui.EndTabItem();
+                imgui.PopStyleColor(1);
             end
             if (imgui.BeginTabItem('RSE Calendar', nil)) then
                 local start_time = nil;
@@ -598,6 +597,7 @@ vana_ui.drawVanaClock = function (vanaclock)
             config.uiSettings.minimize[1] = not config.uiSettings.minimize[1];
         end
         
+        imgui.PopStyleColor(3);
         imgui.End();
     else
         imgui.PopStyleColor(3);
